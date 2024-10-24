@@ -1,34 +1,58 @@
-// fantasia, aventura, drama
+//curitiba cidade grande
+//maragogi considerada caribe do brasil
+//rio de janeiro praia 
+//são paulo cidade grande 
 
-// a viagem de chihiro, LIVRE, fantasia, aventura
-// paddington, LIVRE, fantasia, aventura
-// as aventuras de pi, 10, drama, fantasia, aventura
-// depois da chuva, 10, drama
-// guardiões da galáxia, 12, fantasia, aventura
-// ladrões de bicicleta, 12, drama
-// o menino que descobriu o vento, 14, drama
-let campoIdade;
+let campoOrcamento;
+let campoPraia;
+let campoCidadeGrande;
 
 function setup() {
-  createCanvas(400, 400);
-  campoIdade = createInput("15");
+  createCanvas(1000, 500);
+  createElement("h2", "Recomendador de lugares para conhecer");
+  createSpan("Quanto você pode gastar R$");
+  campoOrcamento = createInput("1000");
+  campoPraia = createCheckbox("Gosta de Praia?");
+  campoCidadeGrande = createCheckbox("Gosta de cidades grandes?");
 }
 
 function draw() {
-  background(220);
-  let idade = 15; // exemplo de idade
-  let recomendacao = geraRecomendacao(idade);
+  background("rgb(247,243,243)");
+  let orcamento = parseFloat(campoOrcamento.value());
+  let gostaDePraia = campoPraia.checked();
+  let gostaDeCidadesGrandes = campoCidadeGrande.checked();
+  let recomendacao = geraRecomendacao(orcamento, gostaDePraia, gostaDeCidadesGrandes);
+
+  fill(color(760, 0, 115));
+  textAlign(CENTER, CENTER);
+  textSize(29);
   text(recomendacao, width / 2, height / 2);
 }
 
-function geraRecomendacao(idade) {
-  if (idade >= 10) {
-    if (idade >= 14) {
-      return "O menino que descobriu o vento";
+function geraRecomendacao(orcamento, gostaDePraia, gostaDeCidadesGrandes) {
+  if (orcamento >= 1000) {
+    if (gostaDePraia) {
+      return "Rio de Janeiro - ótimo para quem gosta de praias e cidade grande.";
+    } else if (gostaDeCidadesGrandes) {
+      return "São Paulo - ideal para quem gosta do agito das grandes cidades.";
     } else {
-      return "As aventuras de Pi";
+      return "Gramado - perfeito para quem busca um lugar tranquilo e charmoso.";
+    }
+  } else if (orcamento >= 500) {
+    if (gostaDePraia) {
+      return "Búzios - excelente para quem quer praias lindas com orçamento moderado.";
+    } else if (gostaDeCidadesGrandes) {
+      return "Curitiba - uma grande cidade com muitos parques e um custo de vida razoável.";
+    } else {
+      return "Ouro Preto - cidade histórica com muita cultura e beleza.";
     }
   } else {
-    return "A viagem de Chihiro";
+    if (gostaDePraia) {
+      return "Maragogi - conhecida como o Caribe brasileiro, com preços mais acessíveis.";
+    } else if (gostaDeCidadesGrandes) {
+      return "Belo Horizonte - cidade grande com muita cultura e opções de lazer econômicas.";
+    } else {
+      return "Petrópolis - cidade com clima de montanha e muita história.";
+    }
   }
 }
